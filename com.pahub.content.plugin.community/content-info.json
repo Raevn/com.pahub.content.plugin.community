@@ -1,0 +1,25 @@
+{
+    "content_id": "com.pahub.content.plugin.community",
+    "store_id": "com.pahub.content.store.plugin",
+    "display_name": "Community",
+    "description": "Plugin for community functionality including News, IRC Chat and Forums",
+    "author": "Raevn",
+    "version": "0.0.0",
+    "date": "2014/08/28",
+    "loc_data": [
+        {
+            "locale_id": "en-us",
+            "data": {
+                "Community_Plugin": "Community Plugin",
+                "plugin-community_description": "Plugin for community functionality including Chat and Forums"
+            }
+        }
+    ],
+    "resources": [
+        "com.pahub.content.plugin.community.js",
+        "com.pahub.content.plugin.community.css"
+    ],
+    "load_func": "load_plugin_community",
+    "unload_func": "unload_plugin_community",
+    "enabled": true
+}

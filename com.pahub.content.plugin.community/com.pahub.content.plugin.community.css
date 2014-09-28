@@ -1,0 +1,25 @@
+.news-entry {
+	margin-bottom: 20px;
+}
+
+.news-title {
+	color: #F9F9F9;
+	font-size: 18px;
+}
+
+.news-date{
+	color: #CC8800;
+	font-size: 12px;
+	font-style: italic;
+	display: inline;
+}
+
+.news-text{
+	color: #888888;
+}
+
+.news-author{
+	font-size: 12px;
+	color: #CC8800;
+	display: inline;
+}
