@@ -23,8 +23,8 @@ function load_plugin_community(data, folder) {
 					model.news.news_loading(false);
 					model.news.news_items.removeAll();
 					var newsJSON = readJSONfromFile(path.join(constant.PAHUB_CACHE_DIR, "news.json"));
-					for (var i = 0; i < newsJSON.entries.length; i++) {
-						model.news.news_items.push(newsJSON.entries[i]);
+					for (var i = 0; i < newsJSON.length; i++) {
+						model.news.news_items.push(newsJSON[i]);
 					}
 				}
 			});
