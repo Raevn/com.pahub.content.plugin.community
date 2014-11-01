@@ -6,7 +6,7 @@
 			<div class='news-entry'>
 				<div class='news-title' data-bind='text: title'></div>
 				<div class='news-date' data-bind='text: date'></div><div class='news-author' data-bind='text: ", posted by " + author'></div>
-				<div class='news-text' data-bind='text: text'></div>
+				<div class='news-text' data-bind='html: text'></div>
 			</div>
 		<!-- /ko -->
 	<!-- /ko -->
@@ -18,8 +18,48 @@
 <!-- ko if: model.news.show_add() -->
 	<div class='heading1'>ADD NEWS ENTRY</div>
 	<div class='text-button' data-bind='click: function() {model.news.show_add(false);}'>Return to news</div><br/><br/>
+	<p>Fill out the form below to submit a news entry. Entries will be reviewed for appropriateness before appearing in the news feed. News entries should relate to Planetary Annihilation, Uber Entertainment, the PA Community Hub or any of its content.</p>
+	
 	<div class='input-label'>Title: </div><input id='add-news-title' type='text'/><br/>
 	<div class='input-label'>Author: </div><input id='add-news-author' type='text'/><br/>
-	<div class='input-label'>Text: </div><input id='add-news-text' type='text'/><br/>
+	<div class='input-label'>Text: </div><textarea id='add-news-text'/><br/>
 	<div class='input-label'></div><span class='text-button' data-bind='click: function() {pahub.api.news.addNewsItem($("#add-news-title").val(),$("#add-news-text").val(),$("#add-news-author").val())}'>Submit</span><br/>
+	<br/>
+	<div class="heading2">Formatting help</div>
+	<p>Enter text using CommonMark markup.</p>
+	<table>
+		<tr>
+			<td>*text* or _text_</td>
+			<td>Italics</td>
+		</tr>
+		<tr>
+			<td>**text** or __text__</td>
+			<td>Bold</td>
+		</tr>
+		<tr>
+			<td>> Text</td>
+			<td>Quoted text 3</td>
+		</tr>
+		<tr>
+			<td>`text`</td>
+			<td>Inline code</td>
+		</tr>
+		<tr>
+			<td>+ Text</td>
+			<td>Unordered List Item</td>
+		</tr>
+		<tr>
+			<td>1. Text</td>
+			<td>Ordered List item</td>
+		</tr>
+		<tr>
+			<td>[Text](url)</td>
+			<td>Create a link to url.<br/>Inline links will also be detected and turned into hyperlinks.</td>
+		</tr>
+		<tr>
+			<td>![Alt Text](url)</td>
+			<td>Inserts an image</td>
+		</tr>
+	</table>
+	
 <!-- /ko -->

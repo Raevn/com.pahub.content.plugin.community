@@ -1,5 +1,18 @@
 /** com.pahub.content.plugin.community **/
 function load_plugin_community(data, folder) {
+	var md = new Remarkable({
+		html:         false,        // Enable html tags in source
+		xhtmlOut:     false,        // Use '/' to close single tags (<br />)
+		breaks:       false,        // Convert '\n' in paragraphs into <br>
+		langPrefix:   'language-',  // CSS language prefix for fenced blocks
+		linkify:      true,        // Autoconvert url-like texts to links
+		typographer:  true,        // Enable smartypants and other sweet transforms
+
+		// Highlighter function. Should return escaped html,
+		// or '' if input not changed
+		highlight: function (/*str, , lang*/) { return ''; }
+	});
+	
 	setConstant("NEWS_URL", "http://pahub.raevn.com/news.php?action=get");
 	
 	pahub.api["news"] = {
@@ -24,6 +37,7 @@ function load_plugin_community(data, folder) {
 					model.news.news_items.removeAll();
 					var newsJSON = readJSONfromFile(path.join(constant.PAHUB_CACHE_DIR, "news.json"));
 					for (var i = 0; i < newsJSON.length; i++) {
+						newsJSON[i].text = md.render(newsJSON[i].text.replace(/\u0001/g, "."));
 						model.news.news_items.push(newsJSON[i]);
 					}
 				}
@@ -31,7 +45,8 @@ function load_plugin_community(data, folder) {
 		},
 		
 		addNewsItem: function(news_title, news_text, news_author) {
-			pahub.api.resource.loadResource("http://pahub.raevn.com/news.php?action=add&title=" + news_title + "&author=" + news_author + "&text=" + news_text, "get", {name: "Submit News Item", mode: "async"});
+			//news_text = news_text.replace(/\"/g,"&quot;"); 
+			pahub.api.resource.loadResource("http://pahub.raevn.com/news.php?action=add&title=" + encodeURIComponent(news_title).replace(/\./g, "%01") + "&author=" + encodeURIComponent(news_author).replace(/\./g, "%01") + "&text=" + encodeURIComponent(news_text).replace(/\./g, "%01"), "get", {name: "Submit News Item", mode: "async"});
 		}
 	}
 	

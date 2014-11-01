@@ -4,20 +4,12 @@
     "display_name": "Community",
     "description": "Plugin for community functionality including News, IRC Chat and Forums",
     "author": "Raevn",
-    "version": "0.0.1",
-    "date": "2014/10/23",
-    "loc_data": [
-        {
-            "locale_id": "en-us",
-            "data": {
-                "Community_Plugin": "Community Plugin",
-                "plugin-community_description": "Plugin for community functionality including Chat and Forums"
-            }
-        }
-    ],
+    "version": "0.1.0",
+    "date": "2014/11/01",
     "resources": [
         "com.pahub.content.plugin.community.js",
-        "com.pahub.content.plugin.community.css"
+        "com.pahub.content.plugin.community.css",
+        "remarkable.min.js"
     ],
     "load_func": "load_plugin_community",
     "unload_func": "unload_plugin_community",
