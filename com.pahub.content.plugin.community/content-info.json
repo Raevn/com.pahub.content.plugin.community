@@ -4,8 +4,8 @@
     "display_name": "Community",
     "description": "Plugin for community functionality including News, IRC Chat and Forums",
     "author": "Raevn",
-    "version": "0.1.0",
-    "date": "2014/11/01",
+    "version": "0.2.0",
+    "date": "2014/11/04",
     "resources": [
         "com.pahub.content.plugin.community.js",
         "com.pahub.content.plugin.community.css",
@@ -13,5 +13,8 @@
     ],
     "load_func": "load_plugin_community",
     "unload_func": "unload_plugin_community",
-    "enabled": true
+    "enabled": true,
+    "required": {
+        "com.pahub": ">=0.2.0"
+    }
 }

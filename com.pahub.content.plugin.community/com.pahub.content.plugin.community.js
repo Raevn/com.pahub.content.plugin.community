@@ -17,11 +17,12 @@ function load_plugin_community(data, folder) {
 	
 	pahub.api["news"] = {
 		addNewsItem: function(news_title, news_text, news_author) { model.news.addNewsItem(news_title, news_text, news_author); },
+		displayPreview: function(news_title, news_text, news_author) { model.news.displayPreview(news_title, news_text, news_author); }
 	}
 	
 	model["news"] = {
 		news_items: ko.observableArray(),
-		
+		news_preview: ko.observable(),
 		news_loading: ko.observable(false),
 		
 		show_add: ko.observable(false),
@@ -38,15 +39,43 @@ function load_plugin_community(data, folder) {
 					var newsJSON = readJSONfromFile(path.join(constant.PAHUB_CACHE_DIR, "news.json"));
 					for (var i = 0; i < newsJSON.length; i++) {
 						newsJSON[i].text = md.render(newsJSON[i].text.replace(/\u0001/g, "."));
+						newsJSON[i].title = newsJSON[i].title.replace(/\u0001/g, ".");
 						model.news.news_items.push(newsJSON[i]);
 					}
 				}
 			});
 		},
+
+		validateNewsItem: function(news_title, news_text, news_author) {
+			if (news_title == "") {
+				return false;
+			}
+			if (news_text == "") {
+				return false;
+			}
+			if (news_author == "") {
+				return false;
+			}
+			return true;
+		},
 		
 		addNewsItem: function(news_title, news_text, news_author) {
-			//news_text = news_text.replace(/\"/g,"&quot;"); 
-			pahub.api.resource.loadResource("http://pahub.raevn.com/news.php?action=add&title=" + encodeURIComponent(news_title).replace(/\./g, "%01") + "&author=" + encodeURIComponent(news_author).replace(/\./g, "%01") + "&text=" + encodeURIComponent(news_text).replace(/\./g, "%01"), "get", {name: "Submit News Item", mode: "async"});
+			if (model.news.validateNewsItem(news_title, news_text, news_author) == true) {
+				pahub.api.resource.loadResource("http://pahub.raevn.com/news.php?action=add&title=" + encodeURIComponent(news_title).replace(/\./g, "%01") + "&author=" + encodeURIComponent(news_author).replace(/\./g, "%01") + "&text=" + encodeURIComponent(news_text).replace(/\./g, "%01"), "get", {name: "Submit News Item", mode: "async"});
+				model.news.show_add(false);
+			}
+		},
+		
+		displayPreview: function(news_title, news_text, news_author) {
+			if (model.news.validateNewsItem(news_title, news_text, news_author) == true) {
+				news_text = md.render(news_text.replace(/\u0001/g, "."));
+				model.news.news_preview({
+					title: news_title,
+					author: news_author,
+					date: getDateTimeString(new Date()),
+					text: news_text
+				});
+			}
 		}
 	}
 	

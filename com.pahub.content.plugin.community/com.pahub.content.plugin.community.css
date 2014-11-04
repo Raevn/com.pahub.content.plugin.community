@@ -23,3 +23,34 @@
 	color: #CC8800;
 	display: inline;
 }
+
+.news-add-details {
+	vertical-align: top;
+	min-width: 400px;
+}
+
+.news-add-help {
+	vertical-align: top;
+	padding-left: 20px;
+}
+
+#add-news-title, #add-news-author {
+	width: 300px;
+}
+
+#add-news-text {
+	width: 298px;
+	height: 170px;
+}
+
+.commonmark-help {
+	font-size: 11px;
+}
+.commonmark-result {
+	color: white;
+}
+
+#news-preview {
+	border: 1px solid #515151;
+	padding: 4px;
+}
