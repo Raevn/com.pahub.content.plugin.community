@@ -1,5 +1,38 @@
+.news-submit-message {
+	color: #CC8800;
+	border: 1px solid #CC8800;
+	padding: 4px;
+}
+.news-filter-message {
+	padding: 4px;
+	border: 1px solid #515151;
+}
+
+.news-filter-caption {
+	color: #888888;
+	display: inline;
+
+}
+.news-filter-value {
+	color: #CC8800;
+	display: inline;
+}
+
 .news-entry {
 	margin-bottom: 20px;
+}
+
+.news-entry-header {
+	border: 1px solid #515151;
+	background-color: #1A1A1A;
+	padding: 4px;
+}
+
+.news-img {
+	float: left;
+	width: 48px;
+	height: 48px;
+	margin-right: 4px;
 }
 
 .news-title {
@@ -8,10 +41,23 @@
 }
 
 .news-date{
+	color: #888888;
+	font-size: 12px;
+}
+
+.news-tags {
+	color: #CC8800;
+}
+
+.news-tag {
 	color: #CC8800;
 	font-size: 12px;
-	font-style: italic;
 	display: inline;
+	font-style: italic;
+}
+.news-tag:hover {
+	color: #FECA00;
+	cursor: pointer;
 }
 
 .news-text{
@@ -19,9 +65,17 @@
 }
 
 .news-author{
+	color: #F9F9F9;
 	font-size: 12px;
-	color: #CC8800;
-	display: inline;
+}
+
+.author-link {
+	color: #008CFF;
+	font-size: 12px;
+}
+.author-link:hover {
+	color: #00DEFF;
+	cursor: pointer;
 }
 
 .news-add-details {
@@ -34,13 +88,23 @@
 	padding-left: 20px;
 }
 
-#add-news-title, #add-news-author {
+#add-news-title, #add-news-author, #add-news-tags {
 	width: 300px;
+}
+
+#add-news-icon  {
+	width: 304px;
 }
 
 #add-news-text {
 	width: 298px;
-	height: 170px;
+	height: 145px;
+}
+
+.add-news-help {
+	font-size: 11px;
+	display: inline;
+	font-style: italic;
 }
 
 .commonmark-help {

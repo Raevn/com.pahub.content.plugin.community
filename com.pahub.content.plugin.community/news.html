@@ -1,11 +1,30 @@
 <!-- ko ifnot: model.news.show_add() -->
 	<div class='heading1' data-bind='text: model.current_loc_data()["NEWS"] || "NEWS"'></div>
 	<div class='text-button' data-bind='click: function() {model.news.show_add(true);}'>Add news entry</div><br/><br/>
-	<!-- ko ifnot: model.news.news_loading -->
-		<!-- ko foreach: model.news.news_items -->
+	<!-- ko if: model.news.show_submit_message() -->
+		<div class="news-submit-message">Your news item has been submitted and is awaiting approval</div>
+		<br/>
+	<!-- /ko -->
+	<!-- ko if: model.news.filter_text() != "" -->
+		<div class="news-filter-message">
+			<div class="news-filter-caption">Current Filter:</div>
+			<div class="news-filter-value" data-bind='text: model.news.filter_text()'></div>
+			<div class="text-button" data-bind='click: function() { pahub.api.news.setFilter("");}'>X</div>
+		</div>
+		<br/>
+	<!-- /ko -->
+	<!-- ko ifnot: model.news.news_loading() -->
+		<!-- ko foreach: model.news.filteredNews() -->
 			<div class='news-entry'>
-				<div class='news-title' data-bind='text: title'></div>
-				<div class='news-date' data-bind='text: date'></div><div class='news-author' data-bind='text: ", posted by " + author'></div>
+				<div class='news-entry-header'>
+					<img class='news-img' data-bind="attr: {src: icon}"/>
+					<div class='news-title' data-bind='text: title'></div>
+					<div class='news-author'><span>Posted by </span><span class="author-link" data-bind="click: function() {launchURL('https://forums.uberent.com/members/?username=' + author);}, text: author"></span></div>
+					<div class='news-date' data-bind='text: date'></div>
+					<div class='news-tags'>
+						<!-- ko foreach: tags --><span data-bind="if: $index() != 0">, </span><div class='news-tag' data-bind='text: $data.name, click: function() {pahub.api.news.setFilter($data.value)}'></div><!-- /ko -->
+					</div>
+				</div>
 				<div class='news-text' data-bind='html: text'></div>
 			</div>
 		<!-- /ko -->
@@ -25,8 +44,11 @@
 			<td class="news-add-details">
 				<div class='input-label'>Title: </div><input id='add-news-title' type='text'/><br/>
 				<div class='input-label'>Author: </div><input id='add-news-author' type='text'/><br/>
+				<div class='input-label'>Tags: </div><input id='add-news-tags' type='text'/><br/>
+				<div class='input-label'></div><div class='add-news-help'>Comma separated. To tag content, use it's content ID.</div><br/>
+				<div class='input-label'>Type: </div><select id='add-news-icon' data-bind='options: model.news.available_icons, optionsValue: "url", optionsText: "name" '/><br/>
 				<div class='input-label'>Text: </div><textarea id='add-news-text'/><br/>
-				<div class='input-label'></div><div class='text-button' data-bind='click: function() {pahub.api.news.displayPreview($("#add-news-title").val(),$("#add-news-text").val(),$("#add-news-author").val())}'>Preview</div><div class='text-button' data-bind='click: function() {pahub.api.news.addNewsItem($("#add-news-title").val(),$("#add-news-text").val(),$("#add-news-author").val())}'>Submit</div><br/>
+				<div class='input-label'></div><div class='text-button' data-bind='click: function() {pahub.api.news.displayPreview($("#add-news-title").val(),$("#add-news-text").val(),$("#add-news-author").val(),$("#add-news-tags").val(),$("#add-news-icon").val())}'>Preview</div><div class='text-button' data-bind='click: function() {pahub.api.news.addNewsItem($("#add-news-title").val(),$("#add-news-text").val(),$("#add-news-author").val(),$("#add-news-tags").val(),$("#add-news-icon").val())}'>Submit</div><br/>
 			</td>
 			<td class="news-add-help">
 				<div class="heading2">Formatting help</div>
@@ -74,8 +96,15 @@
 		<!-- if: model.news.news_preview() -->
 			<!-- ko with: model.news.news_preview -->
 				<div class='news-entry'>
-					<div class='news-title' data-bind='text: title'></div>
-					<div class='news-date' data-bind='text: date'></div><div class='news-author' data-bind='text: ", posted by " + author'></div>
+					<div class='news-entry-header'>
+						<img class='news-img' data-bind="attr: {src: icon}"/>
+						<div class='news-title' data-bind='text: title'></div>
+						<div class='news-author'><span>Posted by </span><span class="author-link" data-bind="click: function() {launchURL('https://forums.uberent.com/members/?username=' + author);}, text: author"></span></div>
+						<div class='news-date' data-bind='text: date'></div>
+						<div class='news-tags'>
+							<!-- ko foreach: tags --><span data-bind="if: $index() != 0">, </span><div class='news-tag' data-bind='text: $data.name, click: function() {}'></div><!-- /ko -->
+						</div>
+					</div>
 					<div class='news-text' data-bind='html: text'></div>
 				</div>
 			<!-- /ko -->
